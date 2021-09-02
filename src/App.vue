@@ -6,9 +6,7 @@ import Login from './components/Login.vue'
 </script>
 
 <template lang="pug">
-img(alt="Vue logo" src="./assets/logo.png")
-Login
-
+router-view
 </template>
 
 <style lang='less'>

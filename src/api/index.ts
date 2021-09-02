@@ -5,9 +5,8 @@
   * @2021-8-31 15:06:23
 */
 import ajax from './ajax'
-import { ResponseValue } from './Model'
+import { ResponseValue, UserData, UserMsg } from './Model'
 import { ReqMethodEnum } from './ReqMethodEnum'
-import { UserModel } from '../types'
 /*
   * @name: reqLogin
   * @test: test font
@@ -16,6 +15,6 @@ import { UserModel } from '../types'
   * @param: {string}password
   * @return: {*}
 */
-export const reqLogin = (username: string, password: string): Promise<ResponseValue<UserModel>> =>
-  ajax<ResponseValue<UserModel>>('/login', { username, password }, ReqMethodEnum.POST)
+export const reqLogin = (username: string, password: string): Promise<ResponseValue<UserData, UserMsg>> =>
+  ajax<ResponseValue<UserData, UserMsg>>('/login', { username, password }, ReqMethodEnum.POST)
 

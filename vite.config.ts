@@ -1,11 +1,18 @@
 import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import styleImport from 'vite-plugin-style-import'
+import ViteComponents, { ElementPlusResolver } from 'vite-plugin-components'
 
 // https://vitejs.dev/config/
 export default defineConfig({
+  define: {
+    'process.env': {}
+  },
   plugins: [
     vue(),
+    ViteComponents({
+      customComponentResolvers: [ElementPlusResolver()]
+    }),
     styleImport({
       libs: [
         {
