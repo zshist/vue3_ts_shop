@@ -19,10 +19,3 @@ import { UserModel } from '../types'
 export const reqLogin = (username: string, password: string): Promise<ResponseValue<UserModel>> =>
   ajax<ResponseValue<UserModel>>('/login', { username, password }, ReqMethodEnum.POST)
 
-/*
-  * @name: reqUsers
-  * @test: test font
-  * @msg: 获取用户列表
-  * @param
-  * return {*}
-*/
