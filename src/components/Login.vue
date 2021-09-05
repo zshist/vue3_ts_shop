@@ -25,7 +25,11 @@ import useCurrentInstance from '../utils/useCurrentInstance'
 import { reqLogin } from '../api/index'
 const loginFormRef = ref()
 // 这是登录表单的数据绑定对象
-const loginForm = reactive({
+interface loginFormParams{
+  username: string
+  password: string
+}
+const loginForm: loginFormParams = reactive({
   username: 'admin',
   password: '123456'
 })
@@ -44,10 +48,10 @@ const loginFormRules = reactive({
     { min: 6, max: 15, message: '长度在3到10个字符', trigger: 'blur' }
   ]
 })
-const resetLoginForm = () => {
+const resetLoginForm: () => void = () => {
   loginFormRef.value.resetFields()
 }
-const login = () => {
+const login: () => void = () => {
   loginFormRef.value.validate(async (vaild: any) => {
     console.log(loginFormRules)
     if(!vaild) return
