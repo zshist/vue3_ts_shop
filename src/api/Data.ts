@@ -13,7 +13,7 @@ export interface ResponseValue<T, K> {
   meta: K
 }
 
-export interface loginData{
+export interface LoginData{
   id: number
   rid: number
   username: string
@@ -52,7 +52,7 @@ export interface AddUsersData{
   is_active: boolean
 }
 
-export interface userStateData{
+export interface UserStateData{
   id: number
   rid: number
   username: string
@@ -61,7 +61,7 @@ export interface userStateData{
   mg_state: number
 }
 
-export interface userByIdData{
+export interface UserByIdData{
   id: number
   username: string
   role_id: number
@@ -75,7 +75,7 @@ export interface EditUsersData{
   role_id: number
 }
 
-export interface roleIdData{
+export interface RoleIdData{
   id: number
   rid: string
   username: string
@@ -83,7 +83,7 @@ export interface roleIdData{
   email: string
 }
 
-export interface rightsListData{
+export interface RightsListData{
   id: number
   authName: string
   level: string
@@ -91,7 +91,7 @@ export interface rightsListData{
   path: string | null
 }
 
-export interface rightTreeData<T>{
+export interface RightTreeData<T>{
   id: number
   authName: string
   path: string | null
@@ -106,11 +106,23 @@ export interface MenusData<T>{
   children: T
 }
 
-export interface rolesData<T>{
+export interface RolesData<T>{
   id: number
   roleName: string
   roleDesc: string
   children: T
+}
+export interface RoleData<T>{
+  id: number
+  authName: string
+  path: null | string
+  children: T
+}
+
+export interface FinalRoleData{
+  id: number
+  authName: string
+  path: null | string
 }
 
 export interface AddRoles{
@@ -119,7 +131,7 @@ export interface AddRoles{
   roleDesc: string
 }
 
-export interface categoriesData<T>{
+export interface CategoriesData<T>{
   cat_id: number
   cat_name: string
   cat_pid: number
@@ -135,7 +147,7 @@ export interface AddCategoriesData{
   cat_level: string
 }
 
-export interface categoriesListData{
+export interface CategoriesListData{
   attr_id: number
   attr_name: string
   cat_id: number
@@ -144,13 +156,13 @@ export interface categoriesListData{
   attr_vals: string
 }
 
-export interface goodsData<T>{
+export interface GoodsData<T>{
   total: number
   pagenum: string
   goods: T
 }
 
-export interface goodsListData{
+export interface GoodsListData{
   goods_id: number
   goods_name: string
   good_price: number
