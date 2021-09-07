@@ -7,9 +7,7 @@
 
 // 自定义返回类型
 export interface ResponseValue<T, K> {
-  flag?: boolean
   data: T
-  message?: string
   meta: K
 }
 
@@ -96,7 +94,14 @@ export interface RightTreeData<T>{
   authName: string
   path: string | null
   pid: number
-  children?: T
+  children: T
+}
+
+export interface FinalRightData{
+  id: number
+  authName: string
+  path: string | null
+  pid: number
 }
 
 export interface MenusData<T>{
@@ -125,7 +130,7 @@ export interface FinalRoleData{
   path: null | string
 }
 
-export interface AddRoles{
+export interface AddRolesData{
   roleId: number
   roleName: string
   roleDesc: string

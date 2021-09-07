@@ -36,7 +36,7 @@ const loginForm: loginFormParams = reactive({
 const { proxy } = useCurrentInstance()
 const router = useRouter()
 // 这是表单的验证对象
-const loginFormRules = reactive({
+const loginFormRules = ref({
   // 验证用户名是否合法
   username: [
     { required: true, message: '请输入登录名称', trigger: 'blur' },
@@ -59,6 +59,7 @@ const login: () => void = () => {
     if(result.meta.status != 200){
       return proxy.$message.error(result.meta.msg)
     }
+    proxy.$message.success(result.meta.msg)
     console.log(result)
     sessionStorage.setItem('token', result.data.token)
     router.push('/home')

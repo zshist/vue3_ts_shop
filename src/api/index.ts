@@ -15,10 +15,14 @@ import {
   UserByIdData,
   EditUsersData,
   RoleIdData,
+  RightsListData,
+  RightTreeData,
+  FinalRightData,
   MenusData,
   RolesData,
   RoleData,
-  FinalRoleData
+  FinalRoleData,
+  AddRolesData
 } from './Data'
 import { Meta } from './Meta'
 import { ReqMethodEnum } from './ReqMethodEnum'
@@ -59,7 +63,17 @@ export const reqDeleteUsers = (id: number): Promise<ResponseValue<null, Meta>> =
 export const reqUserToRole = (id: number, rid: string): Promise<ResponseValue<RoleIdData, Meta>> =>
   ajax<ResponseValue<RoleIdData, Meta>>(`/users/${id}/role`, { rid }, ReqMethodEnum.PUT)
 
-export const reqRights = () => {}
+export const reqRights = (type: string): Promise<ResponseValue<RightsListData, Meta>> | Promise<ResponseValue<RightTreeData<RightTreeData<FinalRightData>>, Meta>> => {
+  switch(type){
+    case 'list':
+      return ajax<ResponseValue<RightsListData, Meta>>(`/rights/${type}`, ReqMethodEnum.GET)
+    case 'tree':
+      return ajax<ResponseValue<RightTreeData<RightTreeData<FinalRightData>>, Meta>>(`/rights/${type}`, ReqMethodEnum.GET)
+    default:
+      return ajax<ResponseValue<RightsListData, Meta>>(`/rights/list`, ReqMethodEnum.GET)
+  } 
+}
+  
 
 /*
   * @name: reqMenus
@@ -70,20 +84,26 @@ export const reqRights = () => {}
 export const reqMenus = (): Promise<ResponseValue<MenusData<MenusData<[]>> ,Meta>> =>
   ajax<ResponseValue<MenusData<MenusData<[]>> ,Meta>>('/menus', ReqMethodEnum.GET)
 
-export const reqRoles = (): Promise<ResponseValue<RolesData<RoleData<RoleData<RoleData<FinalRoleData>>>>, Meta>> =>
-  ajax<ResponseValue<RolesData<RoleData<RoleData<RoleData<FinalRoleData>>>>, Meta>>('/roles', ReqMethodEnum.GET)
+export const reqRoles = (): Promise<ResponseValue<RolesData<RoleData<RoleData<FinalRoleData>>>, Meta>> =>
+  ajax<ResponseValue<RolesData<RoleData<RoleData<FinalRoleData>>>, Meta>>('/roles', ReqMethodEnum.GET)
 
-export const reqAddRoles = () => {}
+export const reqAddRoles = (roleName: string, roleDesc: string): Promise<ResponseValue<AddRolesData ,Meta>> =>
+  ajax<ResponseValue<AddRolesData ,Meta>>('/roles', { roleName, roleDesc }, ReqMethodEnum.POST)
 
-export const reqRolesById = () => {}
+export const reqRolesById = (id: number): Promise<ResponseValue<AddRolesData ,Meta>> =>
+  ajax<ResponseValue<AddRolesData ,Meta>>(`/roles/${id}`, ReqMethodEnum.GET)
 
-export const reqEditRoles = () => {}
+export const reqEditRoles = (id: number, roleName: string, roleDesc: string): Promise<ResponseValue<AddRolesData ,Meta>> =>
+ajax<ResponseValue<AddRolesData ,Meta>>(`/roles/${id}`, { roleName, roleDesc },ReqMethodEnum.PUT)
 
-export const reqDeleteRoles = () => {}
+export const reqDeleteRoles = (id: number): Promise<ResponseValue<null, Meta>> =>
+  ajax<ResponseValue<null, Meta>>(`/roles/${id}`, ReqMethodEnum.DELETE)
 
-export const reqRolesToRights = () => {}
+export const reqRolesToRights = (roleId: number, Rids: number): Promise<ResponseValue<null, Meta>> =>
+  ajax<ResponseValue<null, Meta>>(`/roles/${roleId}/rights`, {Rids}, ReqMethodEnum.POST)
 
-export const reqDeleteRoleIdByRightId = () => {}
+export const reqDeleteRoleIdByRightId = (roleId: number, rightId: number): Promise<ResponseValue<RoleData<RoleData<FinalRoleData>>, Meta>> =>
+  ajax<ResponseValue<RoleData<RoleData<FinalRoleData>>, Meta>>(`/roles/${roleId}/rights/${rightId}`, ReqMethodEnum.DELETE)
 
 export const reqCategories = () => {}
 

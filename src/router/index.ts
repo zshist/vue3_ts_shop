@@ -4,8 +4,10 @@ const routes: Array<RouteRecordRaw> = [
   { path: '/login', name: 'Login', component: () => import('../components/Login.vue') },
   { path: '/home', name: 'Home' ,component: () => import('../components/Home.vue'),
     redirect: '/welcome', children: [
-      { path: '/welcome', component: () => import('../components/Welcome.vue')},
-      { path: '/users', component: () => import('../view/users/Users.vue')}
+      { path: '/welcome', component: () => import('../components/Welcome.vue') },
+      { path: '/users', component: () => import('../view/users/Users.vue') },
+      { path: '/rights', component: () => import('../view/roles/Rights.vue') },
+      { path: '/roles', component: () => import('../view/roles/Roles.vue') },
     ]
   },
 ]

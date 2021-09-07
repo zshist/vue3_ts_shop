@@ -67,7 +67,7 @@ el-dialog(title='分配角色' v-model='setRoleDialogVisible' width='50%' @close
 </template>
 
 <script setup lang='ts'>
-import { reactive, ref } from 'vue'
+import { ref } from 'vue'
 import {
   reqUsers,
   reqAddUsers,
@@ -87,10 +87,10 @@ addDialogVisible = ref(false),
 editDialogVisible = ref(false),
 setRoleDialogVisible = ref(false),
 selectedRoleId = ref(''),
-editForm: any = reactive({}),
-userInfo: any = reactive({}),
-rolesList: any = reactive([]),
-userList: any = reactive([])
+editForm: any = ref({}),
+userInfo: any = ref({}),
+rolesList: any = ref([]),
+userList: any = ref([])
 const checkEmail = (rule: any, value: string, cb: (arg0?: Error) => any): any => {
   const regEmail: RegExp = /^([a-zA-Z])|[0-9](\w|\-)+@[a-zA-Z0-9]+\.([a-zA-Z]{2,4})$/
   if(regEmail.test(value)){
@@ -105,19 +105,19 @@ const checkMobile = (rule: any, value: string, cb: (arg0?: Error | undefined) =>
   }
   cb(new Error('请输入合法手机号码'))
 }
-const queryInfo = reactive({
+const queryInfo = ref({
   query: '',
   pagenum: 1,
   pagesize: 2
 })
 
-const addForm = reactive({
+const addForm = ref({
   username: '',
   password: '',
   email: '',
   mobile: ''
 })
-const addFormRules = reactive({
+const addFormRules = ref({
   username: [
     { required: true, message: '请输入用户名', trigger: true},
     { min: 3, max: 10, message: '用户名的长度在3~10各字符之间', trigger: 'blur' }
@@ -135,7 +135,7 @@ const addFormRules = reactive({
     { validator: checkMobile, trigger: 'blur' }
   ]
 })
-const editFormRules = reactive({
+const editFormRules = ref({
   email: [
     { required: true, message: '请输入邮箱', trigger: 'blur' }, 
     { validator: checkEmail, trigger: 'blur' }
@@ -147,27 +147,27 @@ const editFormRules = reactive({
 })
 
 const getUserList = async () => {
-  const result = await reqUsers(queryInfo.query, queryInfo.pagenum, queryInfo.pagesize)
+  const result = await reqUsers(queryInfo.value.query, queryInfo.value.pagenum, queryInfo.value.pagesize)
   if(result.meta.status !== 200){
     return proxy.$message.error(result.meta.msg)
   }
-  userList = result.data.users
+  userList.value = result.data.users
   total.value = result.data.total
   console.log(result)
 }
 const handleSizeChange = (newSize: number) => {
-  queryInfo.pagesize = newSize
+  queryInfo.value.pagesize = newSize
   getUserList()
 }
 const handleCurrentChange = (newPage: number) => {
-  queryInfo.pagenum = newPage
+  queryInfo.value.pagenum = newPage
   getUserList()
 }
-const userStateChanged = async (userInfo: any) => {
-  console.log(userInfo)
-  const result = await reqEditUserState(userInfo.id, userInfo.mg_state)
+const userStateChanged = async (userinfo: any) => {
+  console.log(userinfo.value)
+  const result = await reqEditUserState(userinfo.id, userinfo.mg_state)
   if(result.meta.status != 200){
-    userInfo.mg_state = !userInfo.mg_state
+    userInfo.value.mg_state = !userinfo.mg_state
     return proxy.$message.error(result.meta.msg)
   }
   proxy.$message.success(result.meta.msg)
@@ -178,7 +178,7 @@ const addDialogClosed = () => {
 const addUser = async () => {
   addFormRef.value.validate(async (valid: any) => {
     if(!valid) return
-    const result = await reqAddUsers(addForm.username, addForm.password, addForm.email, addForm.mobile)
+    const result = await reqAddUsers(addForm.value.username, addForm.value.password, addForm.value.email, addForm.value.mobile)
     if(result.meta.status !== 200){
       proxy.$message.error(result.meta.msg)
     }
@@ -192,7 +192,7 @@ const showEditDialog = async (id: number) => {
   if(result.meta.status != 200){
     proxy.$message.error(result.meta.msg)
   }
-  editForm = result.data
+  editForm.value = result.data
   editDialogVisible.value = true
 }
 const editDialogClosed = () => {
@@ -226,12 +226,12 @@ const removeUserById = async (id: any) => {
   proxy.$message.success(result.meta.msg)
 }
 const setRole = async (userinfo: any) => {
-  userInfo = userinfo
+  userInfo.value = userinfo
   const result = await reqRoles()
   if(result.meta.status !== 200){
     return proxy.$message.error(result.meta.msg)
   }
-  rolesList = result.data
+  rolesList.value = result.data
   setRoleDialogVisible.value = true
   proxy.$message.success(result.meta.msg)
 }
@@ -249,7 +249,7 @@ const saveRoleInfo = async () => {
 }
 const setRoleDialogClosed = () => {
   selectedRoleId.value = ''
-  userInfo = {}
+  userInfo.value = {}
 }
 getUserList()
 </script>
