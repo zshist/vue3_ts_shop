@@ -71,6 +71,8 @@ export interface EditUsersData{
   id: number
   username: string
   role_id: number
+  mobile: string
+  email: string
 }
 
 export interface RoleIdData{
@@ -107,7 +109,7 @@ export interface FinalRightData{
 export interface MenusData<T>{
   id: number
   authName: string
-  path: null
+  path: null | string
   children: T
 }
 
@@ -145,6 +147,14 @@ export interface CategoriesData<T>{
   children: T
 }
 
+export interface FinalCategoriesData{
+  cat_id: number
+  cat_name: string
+  cat_pid: number
+  cat_level: number
+  cat_deleted: boolean
+}
+
 export interface AddCategoriesData{
   cat_id: number
   cat_name: string
@@ -177,17 +187,15 @@ export interface GoodsListData{
   add_time: number
   upd_time: number
   hot_number: number
-  is_promote: boolean
+  is_promote: boolean,
 }
 
-export interface AddGoods{
-  goods_name: string
-  goods_cat: string
-  goods_price: number
-  goods_number: number
-  goods_weight: number
-  goods_introduce: string
-  pics: [pic: string, attrs: [attr_id: number, attr_value: string]]
+export interface Pics{
+  pic: string
+}
+export interface Attrs{
+  attr_id: number
+  attr_value: string
 }
 
 export interface PicsData{
@@ -196,6 +204,25 @@ export interface PicsData{
   pics_big: string
   pics_mid: string
   pics_sma: string
+}
+
+export interface AddGoodsData{
+  goods_id: number,
+  goods_name: string,
+  goods_price: number,
+  cat_id?: number,
+  goods_number: number,
+  goods_weight: number,
+  goods_introduce: string,
+  goods_big_logo: string,
+  goods_small_logo: string,
+  goods_state: number,
+  add_time: number
+  upd_time: number
+  hot_mumber: number
+  is_promote: boolean
+  pics: PicsData,
+  attrs: AttrsData
 }
 
 export interface AttrsData{
@@ -207,24 +234,6 @@ export interface AttrsData{
   attr_sel: string
   attr_write: string
   attr_vals: string
-}
-
-export interface GoodsPicsData<T>{
-  goods_id: number
-  goods_name: string
-  goods_price: number
-  goods_weight: number
-  goods_introduce: null
-  goods_big_logo: string
-  goods_small_logo: string
-  goods_state: number
-  is_del: string
-  add_time: number
-  upd_time: number
-  delete_time: number
-  hot_number: number
-  is_promote: boolean
-  pics: T
 }
 
 export interface UploadData{
@@ -256,7 +265,25 @@ export interface OrderData{
 }
 
 export interface GoodsState{
-  id: number
+  order_id: number
+  user_id: number
+  order_number: string
+  order_price: number
+  order_pay: string
+  is_send: string
+  trade_no: string
+  order_fapiao_title: string,
+  order_fapiao_company: string
+  order_fapiao_content: string
+  consignee_addr: string
+  pay_status: string
+  create_time: number
+  update_time: number
+  goods: goods
+}
+
+export interface goods{
+  id: string
   order_id: number
   goods_id: number
   goods_price: number

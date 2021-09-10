@@ -22,7 +22,22 @@ import {
   RolesData,
   RoleData,
   FinalRoleData,
-  AddRolesData
+  AddRolesData,
+  CategoriesData,
+  FinalCategoriesData,
+  AddCategoriesData,
+  CategoriesListData,
+  GoodsData,
+  GoodsListData,
+  Pics,
+  Attrs,
+  AddGoodsData,
+  UploadData,
+  OrdersData,
+  OrderData,
+  GoodsState,
+  KuaidiData,
+  ReportsData
 } from './Data'
 import { Meta } from './Meta'
 import { ReqMethodEnum } from './ReqMethodEnum'
@@ -74,7 +89,6 @@ export const reqRights = (type: string): Promise<ResponseValue<RightsListData, M
   } 
 }
   
-
 /*
   * @name: reqMenus
   * @test: test font
@@ -105,48 +119,71 @@ export const reqRolesToRights = (roleId: number, Rids: number): Promise<Response
 export const reqDeleteRoleIdByRightId = (roleId: number, rightId: number): Promise<ResponseValue<RoleData<RoleData<FinalRoleData>>, Meta>> =>
   ajax<ResponseValue<RoleData<RoleData<FinalRoleData>>, Meta>>(`/roles/${roleId}/rights/${rightId}`, ReqMethodEnum.DELETE)
 
-export const reqCategories = () => {}
+export const reqCategories = (query: string, pagenum: number, pagesize: number): Promise<ResponseValue<CategoriesData<CategoriesData<FinalCategoriesData>>, Meta>> =>
+  ajax<ResponseValue<CategoriesData<CategoriesData<FinalCategoriesData>>, Meta>>('/categories', { query, pagenum, pagesize },ReqMethodEnum.GET)
 
-export const reqAddCategories = () => {}
+export const reqAddCategories = (): Promise<ResponseValue<AddCategoriesData, Meta>> => 
+  ajax<ResponseValue<AddCategoriesData, Meta>>('/categories', ReqMethodEnum.POST)
 
-export const reqCategoriesById = () => {}
+export const reqCategoriesById = (id: number): Promise<ResponseValue<AddCategoriesData, Meta>> =>
+  ajax<ResponseValue<AddCategoriesData, Meta>>(`/categories/${id}`, ReqMethodEnum.GET)
 
-export const reqEditCategories = () => {}
+export const reqEditCategories = (id: number): Promise<ResponseValue<AddCategoriesData, Meta>> =>
+  ajax<ResponseValue<AddCategoriesData, Meta>>(`/categories/${id}`, ReqMethodEnum.PUT)
 
-export const reqDeleteCategories = () => {}
+export const reqDeleteCategories = (id: number): Promise<ResponseValue<null, Meta>> =>
+  ajax<ResponseValue<null, Meta>>(`/categories/${id}`, ReqMethodEnum.DELETE)
 
-export const reqCategoriesParams = () => {}
+export const reqCategoriesParams = (id: number): Promise<ResponseValue<CategoriesListData, Meta>> =>
+  ajax<ResponseValue<CategoriesListData, Meta>>(`/categories/${id}/attributes`, ReqMethodEnum.GET)
 
-export const reqAddCategoriesParams = () => {}
+export const reqAddCategoriesParams = (id: number): Promise<ResponseValue<CategoriesListData, Meta>> =>
+  ajax<ResponseValue<CategoriesListData, Meta>>(`/categories/${id}/attributes`, ReqMethodEnum.POST)
 
-export const reqDeleteCategoriesParams = () => {}
+export const reqDeleteCategoriesParams = (id: number, attrid: number): Promise<ResponseValue<null, Meta>> =>
+  ajax<ResponseValue<null, Meta>>(`/categories/${id}/attributes/${attrid}`, ReqMethodEnum.DELETE)
 
-export const reqDeleteCategoriesParamsById = () => {}
+export const reqDeleteCategoriesParamsById = (id: number, attrId: number, attr_sel: string, attr_vals: string): Promise<ResponseValue<CategoriesListData, Meta>> =>
+  ajax<ResponseValue<CategoriesListData, Meta>>(`/categories/${id}/attributes/${attrId}`,{ attr_sel, attr_vals }, ReqMethodEnum.GET)
 
-export const reqEditCategoriesParams = () => {}
+export const reqEditCategoriesParams = (id: number, attrId: number, attr_sel: string, attr_vals: string): Promise<ResponseValue<CategoriesListData, Meta>> =>
+  ajax<ResponseValue<CategoriesListData, Meta>>(`/categories/${id}/attributes/${attrId}`,{ attr_sel, attr_vals }, ReqMethodEnum.PUT)
 
-export const reqGoods = () => {}
+export const reqGoods = (query: string, pagenum: number, pagesize: number): Promise<ResponseValue<GoodsData<GoodsListData>, Meta>> =>
+  ajax<ResponseValue<GoodsData<GoodsListData>, Meta>>('/goods', { query, pagenum, pagesize }, ReqMethodEnum.GET)
 
-export const reqAddGoods = () => {}
+export const reqAddGoods = (goods_name: string, goods_cat: string, goods_price: number, goods_number: number, goods_weight: number, goods_introduce: string, pics: Pics, attrs: Attrs): Promise<ResponseValue<AddGoodsData, Meta>> =>
+  ajax<ResponseValue<AddGoodsData, Meta>>('/goods', { goods_name, goods_cat, goods_price, goods_number, goods_weight, goods_introduce, pics, attrs }, ReqMethodEnum.POST)
 
-export const reqGoodsById = () => {}
+export const reqGoodsById = (id: number): Promise<ResponseValue<AddGoodsData,Meta>> =>
+  ajax<ResponseValue<AddGoodsData,Meta>>(`/goods/${id}`, ReqMethodEnum.GET)
 
-export const reqEditGoods = () => {}
+export const reqEditGoods = (id: number, goods_name: string, goods_price: number, goods_number: number, goods_weight: number, goods_introduce: string, pics: Pics, attrs: Attrs): Promise<ResponseValue<AddGoodsData, Meta>> =>
+  ajax<ResponseValue<AddGoodsData, Meta>>(`/goods/${id}`, { goods_name, goods_price, goods_number, goods_weight, goods_introduce, pics, attrs }, ReqMethodEnum.PUT)
 
-export const reqDeleteGoods = () => {}
+export const reqDeleteGoods = (id: number): Promise<ResponseValue<null, Meta>> =>
+  ajax<ResponseValue<null, Meta>>(`/goods/${id}`, ReqMethodEnum.DELETE)
 
-export const reqGoodsPics = () => {}
+export const reqGoodsPics = (id: number, pics: string): Promise<ResponseValue<AddGoodsData, Meta>> =>
+  ajax<ResponseValue<AddGoodsData, Meta>>(`/goods/${id}/pics`, { pics }, ReqMethodEnum.PUT)
 
-export const reqGoodsParams = () => {}
+export const reqGoodsParams = (id: number) =>
+  ajax<ResponseValue<AddGoodsData, Meta>>(`/goods/${id}`, ReqMethodEnum.PUT)
 
-export const reqUpload = () => {}
+export const reqUpload = (file: any): Promise<ResponseValue<UploadData, Meta>> =>
+  ajax<ResponseValue<UploadData, Meta>>('/upload', { file },ReqMethodEnum.POST)
 
-export const reqOrders = () => {}
+export const reqOrders = (query: string, pagenum: number, pagesize: number, user_id: number, pay_status: string, is_send: string, order_faipiao_title: string, order_fapiao_company: string, order_fapiao_content: string, consignee_addr: string): Promise<ResponseValue<OrdersData<OrderData>, Meta>> =>
+  ajax<ResponseValue<OrdersData<OrderData>, Meta>>('/orders', { query, pagenum, pagesize, user_id, pay_status, is_send, order_faipiao_title, order_fapiao_company, order_fapiao_content, consignee_addr }, ReqMethodEnum.GET)
 
-export const reqEditOrders = () => {}
+export const reqEditOrders = (id: number, is_send: string, order_pay: string, order_price: number, order_number: number, pay_status: string): Promise<ResponseValue<GoodsState, Meta>> =>
+  ajax<ResponseValue<GoodsState, Meta>>(`/orders/${id}`, { is_send, order_pay, order_price, order_number, pay_status })
 
-export const reqOrdersById = () => {}
+export const reqOrdersById = (id: number): Promise<ResponseValue<GoodsState, Meta>> =>
+  ajax<ResponseValue<GoodsState, Meta>>(`/orders/${id}`, ReqMethodEnum.GET)
 
-export const reqKuaidi = () => {}
+export const reqKuaidi = (id: number): Promise<ResponseValue<KuaidiData, Meta>> =>
+  ajax<ResponseValue<KuaidiData, Meta>>(`/kuaidi/${id}`, ReqMethodEnum.GET)
 
-export const reqReports = () => {}
+export const reqReports = (): Promise<ResponseValue<ReportsData, Meta>> =>
+  ajax('/reports/type/1')

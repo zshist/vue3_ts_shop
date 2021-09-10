@@ -65,8 +65,8 @@ import {
   reqDeleteRoles,
   reqRolesToRights,
   reqDeleteRoleIdByRightId,
-reqRights,
-reqUserToRole
+  reqRights,
+  reqUserToRole
 } from '../../api/index'
 import useCurrentInstance from '../../utils/useCurrentInstance'
 const { proxy } = useCurrentInstance()
