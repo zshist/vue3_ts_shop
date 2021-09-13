@@ -3,11 +3,10 @@ my-echarts(:options='options')
 </template>
 
 <script setup lang='ts'>
-import MyEcharts from '../../components/MyEcharts.vue'
 import { ref } from 'vue'
 import { reqReports } from '../../api/index'
 import _ from 'lodash'
-const options = ref({  
+const options = ref({
   title: {
     text: '用户来源'
   },

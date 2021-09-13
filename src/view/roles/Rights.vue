@@ -14,7 +14,6 @@ el-card
         el-tag(type='success' v-else-if='scope.row.level === "1"') 二级
         el-tag(type='warning' v-else) 三级
 </template>
-
 <script setup lang='ts'>
 import { ref } from 'vue'
 import { reqRights } from '../../api/index'
@@ -32,7 +31,6 @@ const getRightsList = async () => {
 }
 getRightsList()
 </script>
-
 <style lang='less'>
-  
+
 </style>

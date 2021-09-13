@@ -12,7 +12,8 @@ const routes: Array<RouteRecordRaw> = [
       { path: '/goods/add', component: () => import('../view/goods/Add.vue') },
       { path: '/params', component: () => import('../view/goods/Params.vue') },
       { path: '/categories', component: () => import('../view/goods/Categories.vue') },
-      { path: '/reports', component: () => import('../view/report/Report.vue') }
+      { path: '/reports', component: () => import('../view/report/Report.vue') },
+      { path: '/orders', component: () => import('../view/order/Order.vue') }
     ]
   },
 ]

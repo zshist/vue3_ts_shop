@@ -44,10 +44,6 @@ export interface AddUsersData{
   type: number
   openid: string
   email: string
-  create_time: string
-  modify_time: null
-  is_delete: boolean
-  is_active: boolean
 }
 
 export interface UserStateData{

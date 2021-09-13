@@ -17,7 +17,7 @@ el-card
     el-table-column(label='商品价格(元)' prop='goods_price' width='95px')
     el-table-column(label='商品重量' prop='goods_weight' width='70px')
     el-table-column(label='创建时间' prop='add_time' width='140px')
-      template(#default='scope') {{addTime }}
+      template(#default='scope') {{ addTime }}
     el-table-column(label='操作' width='130px')
       template(#default='scope')
         el-button(type='primary' icon='el-icon-edit' size='mini')

@@ -1,5 +1,5 @@
-<template>
-<div :id="id" :style="style"></div>
+<template lang="pug">
+div(:id="id" :style="style")
 </template>
 
 <script setup lang='ts'>
@@ -39,3 +39,5 @@ onMounted(() => {
   initEcharts()
 })
 </script>
+<style lang="less" scoped>
+</style>
